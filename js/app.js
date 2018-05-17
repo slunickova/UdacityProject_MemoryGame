@@ -91,10 +91,13 @@ ul.appendChild(fragment);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-function selectCard() {
-  const li = document.getElementsByTagName('li');
-  li.classList.add("show", "open");
+function selectCard(event) {
+  //const li = document.querySelectorAll("li");
+  //li.classList.add("show", "open");
+  event.target.classList.add("show", "open")
 }
 
-const card = document.getElementsByClassName('card')
-card.addEventListener('click', selectCard());
+const cards = document.querySelectorAll(".card");
+for (const card of cards) {
+    card.addEventListener("click", selectCard);
+}
