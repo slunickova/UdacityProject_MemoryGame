@@ -2,6 +2,16 @@
  * Create a list that holds all of your cards
  */
 
+let cardPics = [
+  "fa-diamond", "fa-diamond",
+  "fa-paper-plane-o", "fa-paper-plane-o",
+  "fa-anchor", "fa-anchor",
+  "fa-bolt", "fa-bolt",
+  "fa-cube", "fa-cube",
+  "fa-leaf", "fa-leaf",
+  "fa-bicycle", "fa-bicycle",
+  "fa-bomb", "fa-bomb"
+];
 
 /*
  * Display the cards on the page
@@ -25,6 +35,50 @@ function shuffle(array) {
     return array;
 }
 
+// used to make adding elements to the web site with better performance
+const fragment = document.createDocumentFragment();
+
+// Shuffle the array first
+cardPics = shuffle(cardPics);
+for (let i = 0; i < cardPics.length; i++) {
+    // I need to create `li` and `i` tags for each icon in the array
+    const li = document.createElement('li');
+
+    // Add the class `card` to it
+    li.classList.add('card');
+
+
+  // li.classList.add('show');
+
+    // Then create a child `i` element
+    // Naming it `i` would break my loop
+    const iTag = document.createElement('i');
+
+
+
+    // Adding the default 'fa' class so other fa-plane etc can make sense
+    iTag.classList.add('fa');
+
+    // I will just add them starting from first element until the last
+    // because shuffling already handled by other function
+    // It will add it starting from 0 to 15
+    iTag.classList.add(cardPics[i]);
+
+    // Adding the `i` into the `li`
+    li.appendChild(iTag);
+
+    // Adding all these li elements in to the currently invisible
+    // fragment element so it won't keep browser busy by adding each
+    // of them one by one
+    fragment.appendChild(li);
+
+}
+// Lastly I need to append it to the container so they can actually
+// be printed on the browser
+const ul = document.querySelector('.deck');
+console.log(fragment);
+ul.appendChild(fragment);
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -36,3 +90,11 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+function selectCard() {
+  const li = document.getElementsByTagName('li');
+  li.classList.add("show", "open");
+}
+
+const card = document.getElementsByClassName('card')
+card.addEventListener('click', selectCard());
