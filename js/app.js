@@ -46,15 +46,11 @@ for (let i = 0; i < cardPics.length; i++) {
 
     // Add the class `card` to it
     li.classList.add('card');
-
-
   // li.classList.add('show');
 
     // Then create a child `i` element
     // Naming it `i` would break my loop
     const iTag = document.createElement('i');
-
-
 
     // Adding the default 'fa' class so other fa-plane etc can make sense
     iTag.classList.add('fa');
@@ -71,14 +67,12 @@ for (let i = 0; i < cardPics.length; i++) {
     // fragment element so it won't keep browser busy by adding each
     // of them one by one
     fragment.appendChild(li);
-
 }
-// Lastly I need to append it to the container so they can actually
+// I need to append it to the container so they can actually
 // be printed on the browser
 const ul = document.querySelector('.deck');
 console.log(fragment);
 ul.appendChild(fragment);
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -91,10 +85,34 @@ ul.appendChild(fragment);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+//Store up to 2 cards in an array
+let selectedCards = [];
+
+//Show the card's picture on click
 function selectCard(event) {
-  //const li = document.querySelectorAll("li");
-  //li.classList.add("show", "open");
-  event.target.classList.add("show", "open")
+//  if (selectedCards.length < 2) {
+
+//if the list already has another card, check to see if the two cards match
+  if (selectedCards.length === 1) {
+    event.target.classList.add("show", "open");
+    selectedCards.push(this);
+//if cards do match
+    if (this.innerHTML === selectedCards[0].innerHTML) {
+      this.classList.add("match");
+      selectedCards[0].classList.add("match");
+      selectedCards = [];
+//if cards do not match
+    } else {
+      this.classList.remove("show", "open");
+      selectedCards[0].classList.remove("show", "open");
+      selectedCards = [];
+      }
+  }
+//if the list has no card
+  else {
+    event.target.classList.add("show", "open");
+    selectedCards.push(this);
+  }
 }
 
 const cards = document.querySelectorAll(".card");
