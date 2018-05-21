@@ -93,7 +93,8 @@ let matchedCards = [];
 
 //Show the card's picture on click
 function selectCard(event) {
-//  if (selectedCards.length < 2) {
+  let matchOne = this;
+  let matchTwo = selectedCards[0];
 
 //if the list already has another card, check to see if the two cards match
   if (selectedCards.length === 1) {
@@ -101,20 +102,22 @@ function selectCard(event) {
     selectedCards.push(this);
 //if cards do match
     if (this.innerHTML === selectedCards[0].innerHTML) {
-      let matchOne = this.classList.add("match");
-      let matchTwo = selectedCards[0].classList.add("match");
+      matchOne.classList.add("match");
+      matchTwo.classList.add("match");
       matchedCards.push(matchOne, matchTwo);
       selectedCards = [];
       winGame();
 //if cards do not match
     } else {
-      this.classList.remove("show", "open");
-      selectedCards[0].classList.remove("show", "open");
-      selectedCards = [];
-      }
-  }
+      setTimeout(function() {
+        matchOne.classList.remove("show", "open");
+        matchTwo.classList.remove("show", "open");
+        selectedCards = [];
+      }, 400);
+
+    }
 //if the list has no card
-  else {
+  } else {
     event.target.classList.add("show", "open");
     selectedCards.push(this);
   }
