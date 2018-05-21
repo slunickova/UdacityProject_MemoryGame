@@ -85,8 +85,11 @@ ul.appendChild(fragment);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-//Store up to 2 cards in an array
+//Store up to 2 selected cards in an array
 let selectedCards = [];
+
+//Store matched cards
+let matchedCards = [];
 
 //Show the card's picture on click
 function selectCard(event) {
@@ -98,9 +101,11 @@ function selectCard(event) {
     selectedCards.push(this);
 //if cards do match
     if (this.innerHTML === selectedCards[0].innerHTML) {
-      this.classList.add("match");
-      selectedCards[0].classList.add("match");
+      let matchOne = this.classList.add("match");
+      let matchTwo = selectedCards[0].classList.add("match");
+      matchedCards.push(matchOne, matchTwo);
       selectedCards = [];
+      winGame();
 //if cards do not match
     } else {
       this.classList.remove("show", "open");
@@ -113,6 +118,13 @@ function selectCard(event) {
     event.target.classList.add("show", "open");
     selectedCards.push(this);
   }
+}
+
+//winning the game
+function winGame() {
+  if (matchedCards.length === cardPics.length) {
+    console.log("You won!");
+  };
 }
 
 const cards = document.querySelectorAll(".card");
