@@ -35,44 +35,38 @@ function shuffle(array) {
     return array;
 }
 
-// used to make adding elements to the web site with better performance
-const fragment = document.createDocumentFragment();
+const ul = document.querySelector('.deck');
 
-// Shuffle the array first
-cardPics = shuffle(cardPics);
-for (let i = 0; i < cardPics.length; i++) {
+function newGame() {
+  // used to make adding elements to the web site with better performance
+  const fragment = document.createDocumentFragment();
+
+  // Shuffle the array first
+  cardPics = shuffle(cardPics);
+  for (let i = 0; i < cardPics.length; i++) {
     // I need to create `li` and `i` tags for each icon in the array
     const li = document.createElement('li');
-
-    // Add the class `card` to it
     li.classList.add('card');
-  // li.classList.add('show');
-
-    // Then create a child `i` element
-    // Naming it `i` would break my loop
     const iTag = document.createElement('i');
-
-    // Adding the default 'fa' class so other fa-plane etc can make sense
+    // Adding the default 'fa' class so other fa-plane etc
     iTag.classList.add('fa');
-
     // I will just add them starting from first element until the last
     // because shuffling already handled by other function
     // It will add it starting from 0 to 15
     iTag.classList.add(cardPics[i]);
-
-    // Adding the `i` into the `li`
     li.appendChild(iTag);
-
     // Adding all these li elements in to the currently invisible
     // fragment element so it won't keep browser busy by adding each
     // of them one by one
     fragment.appendChild(li);
+  }
+  // I need to append it to the container so they can actually
+  // be printed on the browser
+  console.log(fragment);
+  ul.appendChild(fragment);
+
+  click();
 }
-// I need to append it to the container so they can actually
-// be printed on the browser
-const ul = document.querySelector('.deck');
-console.log(fragment);
-ul.appendChild(fragment);
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -85,6 +79,7 @@ ul.appendChild(fragment);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+
 //Store up to 2 selected cards in an array
 let selectedCards = [];
 
@@ -96,32 +91,41 @@ function selectCard(event) {
   let matchOne = this;
   let matchTwo = selectedCards[0];
 
-//if the list already has another card, check to see if the two cards match
+  //if the list already has another card, check to see if the two cards match
   if (selectedCards.length === 1) {
-    event.target.classList.add("show", "open");
+    event.target.classList.add("show", "open", "stop");
     selectedCards.push(this);
-//if cards do match
+    //if cards do match
     if (this.innerHTML === selectedCards[0].innerHTML) {
       matchOne.classList.add("match");
       matchTwo.classList.add("match");
       matchedCards.push(matchOne, matchTwo);
       selectedCards = [];
       winGame();
-//if cards do not match
+    //if cards do not match
     } else {
       setTimeout(function() {
-        matchOne.classList.remove("show", "open");
-        matchTwo.classList.remove("show", "open");
+        matchOne.classList.remove("show", "open", "stop");
+        matchTwo.classList.remove("show", "open", "stop");
         selectedCards = [];
-      }, 400);
+      }, 600);
 
     }
-//if the list has no card
+  //if the list has no card
   } else {
-    event.target.classList.add("show", "open");
+    event.target.classList.add("show", "open", "stop");
     selectedCards.push(this);
   }
 }
+
+//click event
+function click() {
+  const cards = document.querySelectorAll(".card");
+  for (const card of cards) {
+      card.addEventListener("click", selectCard);
+  };
+}
+
 
 //winning the game
 function winGame() {
@@ -130,7 +134,13 @@ function winGame() {
   };
 }
 
-const cards = document.querySelectorAll(".card");
-for (const card of cards) {
-    card.addEventListener("click", selectCard);
-}
+//strat a new game
+newGame();
+
+//restart game
+const restartButton = document.querySelector(".restart");
+restartButton.addEventListener("click", function(){
+  ul.innerHTML = "";
+  newGame();
+  matchedCards = [];
+});
