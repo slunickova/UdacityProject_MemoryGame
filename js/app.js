@@ -101,6 +101,7 @@ function selectCard(event) {
       matchTwo.classList.add("match");
       matchedCards.push(matchOne, matchTwo);
       countMoves();
+      starRating();
       selectedCards = [];
       winGame();
     //if cards do not match
@@ -110,7 +111,8 @@ function selectCard(event) {
         matchTwo.classList.remove("show", "open", "stop");
         selectedCards = [];
       }, 600);
-      countMoves();
+      countMoves()
+      starRating();
     }
   //if the list has no card
   } else {
@@ -150,4 +152,22 @@ restartButton.addEventListener("click", function(){
 const moves = document.querySelector(".moves");
 function countMoves() {
   moves.innerHTML++;
+}
+
+//star rating
+//const stars = document.querySelector(".stars");
+//if (moves.innerHTML >= 3) {
+//    stars.lastChild.classList.add("grey");
+//}
+const firstStar = document.querySelector(".firststar");
+const secondStar = document.querySelector(".secondstar");
+const thirdStar = document.querySelector(".thirdstar");
+function starRating() {
+  if (moves.innerHTML >= 20) {
+      thirdStar.classList.add("grey");
+  } else if (moves.innerHTML >= 15) {
+      secondStar.classList.add("grey");
+  } else if (moves.innerHTML >= 12) {
+      firstStar.classList.add("grey");
+  }
 }
