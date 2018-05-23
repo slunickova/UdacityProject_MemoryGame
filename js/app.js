@@ -100,6 +100,7 @@ function selectCard(event) {
       matchOne.classList.add("match");
       matchTwo.classList.add("match");
       matchedCards.push(matchOne, matchTwo);
+      countMoves();
       selectedCards = [];
       winGame();
     //if cards do not match
@@ -109,7 +110,7 @@ function selectCard(event) {
         matchTwo.classList.remove("show", "open", "stop");
         selectedCards = [];
       }, 600);
-
+      countMoves();
     }
   //if the list has no card
   } else {
@@ -144,3 +145,9 @@ restartButton.addEventListener("click", function(){
   newGame();
   matchedCards = [];
 });
+
+//moves counter
+const moves = document.querySelector(".moves");
+function countMoves() {
+  moves.innerHTML++;
+}
