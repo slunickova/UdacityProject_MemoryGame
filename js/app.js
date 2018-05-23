@@ -155,17 +155,13 @@ function countMoves() {
 }
 
 //star rating
-//const stars = document.querySelector(".stars");
-//if (moves.innerHTML >= 3) {
-//    stars.lastChild.classList.add("grey");
-//}
 const firstStar = document.querySelector(".firststar");
 const secondStar = document.querySelector(".secondstar");
 const thirdStar = document.querySelector(".thirdstar");
 function starRating() {
-  if (moves.innerHTML >= 20) {
+  if (moves.innerHTML >= 22) {
       thirdStar.classList.add("grey");
-  } else if (moves.innerHTML >= 15) {
+  } else if (moves.innerHTML >= 17) {
       secondStar.classList.add("grey");
   } else if (moves.innerHTML >= 12) {
       firstStar.classList.add("grey");
