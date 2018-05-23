@@ -146,6 +146,10 @@ restartButton.addEventListener("click", function(){
   ul.innerHTML = "";
   newGame();
   matchedCards = [];
+  moves.innerHTML = 0;
+  thirdStar.classList.remove("grey");
+  secondStar.classList.remove("grey");
+  firstStar.classList.remove("grey");
 });
 
 //moves counter
@@ -167,3 +171,5 @@ function starRating() {
       firstStar.classList.add("grey");
   }
 }
+
+//timer

@@ -110,7 +110,7 @@ h1 {
 .score-panel .stars li .grey {
     list-style: none;
     display: inline-block;
-    color: grey;
+    color: #00000045;
   }
 
 .score-panel .restart {
