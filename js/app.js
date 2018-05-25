@@ -86,8 +86,16 @@ let selectedCards = [];
 //Store matched cards
 let matchedCards = [];
 
+//first click to start timer
+let isFirstClick = false;
+
 //Show the card's picture on click
 function selectCard(event) {
+  if (isFirstClick) {
+    startClock();
+    isFirstClick = false;
+  }
+
   let matchOne = this;
   let matchTwo = selectedCards[0];
 
@@ -126,7 +134,7 @@ function click() {
   const cards = document.querySelectorAll(".card");
   for (const card of cards) {
       card.addEventListener("click", selectCard);
-  };
+  }
 }
 
 
@@ -134,6 +142,7 @@ function click() {
 function winGame() {
   if (matchedCards.length === cardPics.length) {
     console.log("You won!");
+    stopClock();
   };
 }
 
@@ -150,6 +159,8 @@ restartButton.addEventListener("click", function(){
   thirdStar.classList.remove("grey");
   secondStar.classList.remove("grey");
   firstStar.classList.remove("grey");
+  sec.innerHTML = "00";
+  min.innerHTML = "00";
 });
 
 //moves counter
@@ -167,9 +178,29 @@ function starRating() {
       thirdStar.classList.add("grey");
   } else if (moves.innerHTML >= 17) {
       secondStar.classList.add("grey");
-  } else if (moves.innerHTML >= 12) {
+  } else if (moves.innerHTML >= 13) {
       firstStar.classList.add("grey");
   }
 }
 
 //timer
+const sec = document.querySelector("#sec")
+const min = document.querySelector("#min")
+
+function startClock() {
+  const clock = setInterval(timer, 1000);
+}
+
+function timer() {
+  if (sec.innerHTML == 59) {
+      sec.innerHTML = "00";
+      min.innerHTML++;
+  } else if (sec.innerHTML >= 0) {
+      sec.innerHTML++;
+  }
+}
+
+//stop timer put it to winGame()
+function stopClock() {
+    clearInterval(clock);
+}
