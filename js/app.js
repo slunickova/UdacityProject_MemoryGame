@@ -87,7 +87,7 @@ let selectedCards = [];
 let matchedCards = [];
 
 //first click to start timer
-let isFirstClick = false;
+let isFirstClick = true;
 
 //Show the card's picture on click
 function selectCard(event) {
@@ -159,8 +159,10 @@ restartButton.addEventListener("click", function(){
   thirdStar.classList.remove("grey");
   secondStar.classList.remove("grey");
   firstStar.classList.remove("grey");
+  stopClock();
   sec.innerHTML = "00";
   min.innerHTML = "00";
+  isFirstClick = true;
 });
 
 //moves counter
@@ -184,11 +186,12 @@ function starRating() {
 }
 
 //timer
-const sec = document.querySelector("#sec")
-const min = document.querySelector("#min")
+const sec = document.querySelector("#sec");
+const min = document.querySelector("#min");
+let clock;
 
 function startClock() {
-  const clock = setInterval(timer, 1000);
+  clock = setInterval(timer, 1000);
 }
 
 function timer() {
