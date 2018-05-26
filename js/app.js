@@ -141,8 +141,9 @@ function click() {
 //winning the game
 function winGame() {
   if (matchedCards.length === cardPics.length) {
-    console.log("You won!");
     stopClock();
+    countStars();
+    showModal();
   };
 }
 
@@ -151,7 +152,9 @@ newGame();
 
 //restart game
 const restartButton = document.querySelector(".restart");
-restartButton.addEventListener("click", function(){
+restartButton.addEventListener("click", restart);
+
+function restart(){
   ul.innerHTML = "";
   newGame();
   matchedCards = [];
@@ -163,7 +166,8 @@ restartButton.addEventListener("click", function(){
   sec.innerHTML = "00";
   min.innerHTML = "00";
   isFirstClick = true;
-});
+  modal.classList.remove("show-modal");
+}
 
 //moves counter
 const moves = document.querySelector(".moves");
@@ -172,6 +176,7 @@ function countMoves() {
 }
 
 //star rating
+const stars = document.querySelector(".stars");
 const firstStar = document.querySelector(".firststar");
 const secondStar = document.querySelector(".secondstar");
 const thirdStar = document.querySelector(".thirdstar");
@@ -203,7 +208,46 @@ function timer() {
   }
 }
 
-//stop timer put it to winGame()
+//stop timer
 function stopClock() {
     clearInterval(clock);
 }
+
+//modal popup with victory message
+const modal = document.querySelector(".modal");
+const closeButton = document.querySelector(".close-button");
+const playButton = document.querySelector(".play-button")
+const finalTime = document.querySelector("#final-time");
+const finalMoves = document.querySelector("#final-moves");
+const finalStars = document.querySelector("#final-stars");
+let numOfStars;
+
+function countStars() {
+  if (moves.innerHTML >= 22) {
+      numOfStars = "0 stars";
+  } else if (moves.innerHTML >= 17) {
+      numOfStars = "1 star";
+  } else if (moves.innerHTML >= 13) {
+      numOfStars = "2 stars";
+  } else {
+    numOfStars = "3 stars"
+  }
+}
+
+//show modal
+function showModal() {
+  modal.classList.toggle("show-modal");
+  finalMoves.innerHTML = moves.innerHTML;
+  finalTime.innerHTML = min.innerHTML + ":" + sec.innerHTML;
+  finalStars.innerHTML = numOfStars;
+}
+
+//click function
+function windowOnClick(event) {
+  if (event.target === modal) {
+    showModal();
+  }
+}
+closeButton.addEventListener("click", showModal);
+window.addEventListener("click", windowOnClick);
+playButton.addEventListener("click", restart);
