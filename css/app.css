@@ -18,7 +18,7 @@ body {
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font-family: 'Spinnaker', sans-serif;
 }
 
 .container {
@@ -26,11 +26,11 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    grid-template-columns: auto auto auto auto;
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 200;
 }
 
 /*
@@ -55,7 +55,7 @@ h1 {
     height: 125px;
     width: 125px;
     background: #2e3d49;
-    font-size: 3;
+    font-size: 0;
     color: #ffffff;
     border-radius: 8px;
     cursor: pointer;
@@ -176,11 +176,13 @@ h1 {
   background-color: lightgray;
 }
 
+.play-button:hover {
+  background-color: darkgray;
+}
+
 .show-modal {
   opacity: 1;
   visibility: visible;
   transform: scale(1.0);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
-
-.

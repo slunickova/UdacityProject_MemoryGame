@@ -1,7 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
-
+//List of cards
 let cardPics = [
   "fa-diamond", "fa-diamond",
   "fa-paper-plane-o", "fa-paper-plane-o",
@@ -12,13 +9,6 @@ let cardPics = [
   "fa-bicycle", "fa-bicycle",
   "fa-bomb", "fa-bomb"
 ];
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -31,61 +21,39 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
-const ul = document.querySelector('.deck');
+//display cards on page
+const ul = document.querySelector(".deck");
 
 function newGame() {
   // used to make adding elements to the web site with better performance
   const fragment = document.createDocumentFragment();
-
-  // Shuffle the array first
   cardPics = shuffle(cardPics);
   for (let i = 0; i < cardPics.length; i++) {
-    // I need to create `li` and `i` tags for each icon in the array
-    const li = document.createElement('li');
-    li.classList.add('card');
-    const iTag = document.createElement('i');
-    // Adding the default 'fa' class so other fa-plane etc
-    iTag.classList.add('fa');
-    // I will just add them starting from first element until the last
-    // because shuffling already handled by other function
-    // It will add it starting from 0 to 15
+    //create `li` and `i` tags for each icon in the array
+    const li = document.createElement("li");
+    const iTag = document.createElement("i");
+    li.classList.add("card");
+    iTag.classList.add("fa");
+    //add them starting from first element until the last
     iTag.classList.add(cardPics[i]);
     li.appendChild(iTag);
-    // Adding all these li elements in to the currently invisible
-    // fragment element so it won't keep browser busy by adding each
-    // of them one by one
+    //add li elements in fragment element so it won't keep browser busy by adding each of them one by one
     fragment.appendChild(li);
   }
-  // I need to append it to the container so they can actually
-  // be printed on the browser
+  //append to the container to be printed on the browser
   console.log(fragment);
   ul.appendChild(fragment);
 
   click();
 }
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-
-
-//Store up to 2 selected cards in an array
+//Store selected cards in an array
 let selectedCards = [];
-
 //Store matched cards
 let matchedCards = [];
-
 //first click to start timer
 let isFirstClick = true;
 
@@ -136,7 +104,6 @@ function click() {
       card.addEventListener("click", selectCard);
   }
 }
-
 
 //winning the game
 function winGame() {
