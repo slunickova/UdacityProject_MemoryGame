@@ -175,7 +175,7 @@ function timer() {
   } else if (sec.innerHTML < 59) {
     sec.innerHTML++;
   }
-  myTimer.innerHTML = min.textContent.padStart(2,'0') + ':' + sec.textContent.padStart(2,'0');
+  myTimer.innerHTML = min.textContent.padStart(2,"0") + ":" + sec.textContent.padStart(2,"0");
 }
 
 //stop timer
