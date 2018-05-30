@@ -130,6 +130,7 @@ function restart(){
   secondStar.classList.remove("grey");
   firstStar.classList.remove("grey");
   stopClock();
+  myTimer.textContent = "00:00";
   sec.innerHTML = "00";
   min.innerHTML = "00";
   isFirstClick = true;
@@ -160,6 +161,7 @@ function starRating() {
 //timer
 const sec = document.querySelector("#sec");
 const min = document.querySelector("#min");
+const myTimer = document.querySelector(".timer");
 let clock;
 
 function startClock() {
@@ -170,12 +172,10 @@ function timer() {
   if (sec.innerHTML == 59) {
       sec.innerHTML = "00";
       min.innerHTML++;
-  } else if (sec.innerHTML >= 10) {
+  } else if (sec.innerHTML < 59) {
     sec.innerHTML++;
-  } else if (sec.innerHTML < 10) {
-    sec.innerHTML++;
-    String(sec.innerHTML).padStart(2, "0");
   }
+  myTimer.innerHTML = min.textContent.padStart(2,'0') + ':' + sec.textContent.padStart(2,'0');
 }
 
 //stop timer
