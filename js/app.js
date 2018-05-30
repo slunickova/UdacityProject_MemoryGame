@@ -170,8 +170,11 @@ function timer() {
   if (sec.innerHTML == 59) {
       sec.innerHTML = "00";
       min.innerHTML++;
-  } else if (sec.innerHTML >= 0) {
-      sec.innerHTML++;
+  } else if (sec.innerHTML >= 10) {
+    sec.innerHTML++;
+  } else if (sec.innerHTML < 10) {
+    sec.innerHTML++;
+    String(sec.innerHTML).padStart(2, "0");
   }
 }
 
